@@ -14,7 +14,7 @@ const Listdetails = props => {
 
   return (
     <tr>
-      <td >{id}</td>
+      <td>{id}</td>
       <td>{name}</td>
       <td>{email}</td>
       <td>{department}</td>

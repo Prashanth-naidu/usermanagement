@@ -36,7 +36,8 @@ class UserList extends Component {
   }
 
   onAddEditError = msg => {
-    const error = `${msg.status} ${msg.url}`
+    // const error = `${msg.status} ${msg.url}`
+    const error = msg
     this.setState(prevState => ({
       showError: !prevState.showError,
       error: error,
@@ -78,11 +79,15 @@ class UserList extends Component {
     const options = {
       method: 'DELETE',
     }
-    const response = await fetch(url, options)
-    if (response.ok) {
-      this.setState({userList: filteredList})
-    } else {
-      const deleteError = `${response.status} ${response.url}`
+    try {
+      const response = await fetch(url, options)
+      if (response.ok) {
+        this.setState({userList: filteredList})
+      } else {
+        throw new Error(`${response.status} ${response.url}`)
+      }
+    } catch (error) {
+      const deleteError = error.message
       this.setState(prevState => ({
         showError: !prevState.showError,
         error: deleteError,
@@ -96,16 +101,19 @@ class UserList extends Component {
 
   getUserList = async () => {
     const url = 'https://jsonplaceholder.typicode.com/users'
-    const response = await fetch(url)
-    const data = await response.json()
-    if (response.ok) {
-      this.setState({userList: data})
-      this.setState(prevState => ({
-        userList: data,
-        showAddBtn: !prevState.showAddBtn,
-      }))
-    } else {
-      const fetchError = `${response.status} ${response.url}`
+    try {
+      const response = await fetch(url)
+      const data = await response.json()
+      if (response.ok) {
+        this.setState(prevState => ({
+          userList: data,
+          showAddBtn: !prevState.showAddBtn,
+        }))
+      } else {
+        throw new Error(`${response.status} ${response.url}`)
+      }
+    } catch (error) {
+      const fetchError = error.message
       this.setState(prevState => ({
         showError: !prevState.showError,
         error: fetchError,

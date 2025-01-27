@@ -33,6 +33,10 @@ class UserForm extends Component {
   onSubmitForm = async event => {
     event.preventDefault()
     const {id, firstName, lastName, email, company} = this.state
+    if (!firstName || !lastName || !email || !company) {
+      alert('All fields are required')
+      return
+    }
     const newObj = {
       id: id,
       name: `${firstName} ${lastName}`.trim(),
@@ -49,19 +53,22 @@ class UserForm extends Component {
       method: id ? 'PUT' : 'POST',
       body: JSON.stringify(newObj),
     }
-
-    const response = await fetch(url, option)
-    if (response.ok) {
-      this.props.onSave(newObj)
-      this.setState({
-        id: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        company: '',
-      })
-    } else {
-      this.props.onAddEditError(response)
+    try {
+      const response = await fetch(url, option)
+      if (response.ok) {
+        this.props.onSave(newObj)
+        this.setState({
+          id: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          company: '',
+        })
+      } else {
+        throw new Error(`${response.status} ${response.url}`)
+      }
+    } catch (error) {
+      this.props.onAddEditError(error.message)
     }
   }
 

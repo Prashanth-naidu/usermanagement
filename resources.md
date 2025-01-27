@@ -15,5 +15,5 @@ to edit use API
 
 image url 
     - https://www.ajackus.com/images/company/ajackus-story.gif 
-    - https://cdn.vectorstock.com/i/500p/62/37/unhappy-person-sitting-om-ground-cartoon-stick-vector-45926237.jpg
+    - https://www.svgrepo.com/show/379925/alert-error.svg
     

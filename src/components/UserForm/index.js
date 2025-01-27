@@ -2,16 +2,16 @@ import {Component} from 'react'
 import './index.css'
 
 class UserForm extends Component {
-  state = {
-    firstName: this.props.userDetails
-      ? this.props.userDetails.name.split(' ')[0]
-      : '',
-    lastName: this.props.userDetails
-      ? this.props.userDetails.name.split(' ')[1]
-      : '',
-    email: this.props.userDetails ? this.props.userDetails.email : '',
-    id: this.props.userDetails ? this.props.userDetails.id : null,
-    company: this.props.userDetails ? this.props.userDetails.company.name : '',
+  constructor(props) {
+    super(props)
+    const {userDetails} = this.props
+    this.state = {
+      firstName: userDetails ? userDetails.name.split(' ')[0] : '',
+      lastName: userDetails ? userDetails.name.split(' ')[1] : '',
+      email: userDetails ? userDetails.email : '',
+      id: userDetails ? userDetails.id : null,
+      company: userDetails ? userDetails.company.name : '',
+    }
   }
 
   onChangeFirstName = event => {
@@ -33,12 +33,13 @@ class UserForm extends Component {
   onSubmitForm = async event => {
     event.preventDefault()
     const {id, firstName, lastName, email, company} = this.state
+    const {onSave, onAddEditError} = this.props
     if (!firstName || !lastName || !email || !company) {
       alert('All fields are required')
       return
     }
     const newObj = {
-      id: id,
+      id,
       name: `${firstName} ${lastName}`.trim(),
       email: email.trim(),
       company: {
@@ -56,7 +57,7 @@ class UserForm extends Component {
     try {
       const response = await fetch(url, option)
       if (response.ok) {
-        this.props.onSave(newObj)
+        onSave(newObj)
         this.setState({
           id: '',
           firstName: '',
@@ -68,7 +69,7 @@ class UserForm extends Component {
         throw new Error(`${response.status} ${response.url}`)
       }
     } catch (error) {
-      this.props.onAddEditError(error.message)
+      onAddEditError(error.message)
     }
   }
 
@@ -82,7 +83,7 @@ class UserForm extends Component {
           className="form_img_logo"
         />
         <form onSubmit={this.onSubmitForm} className="form_ele">
-          <label>User Details</label>
+          <p>User Details</p>
           <input
             type="text"
             value={firstName}

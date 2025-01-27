@@ -1,3 +1,5 @@
+- Initialize a new React project using `create-react-app` for simplicity.
+- Install necessary packages like `axios` or `fetch` (for API calls) and `react-router-dom` (if navigation between pages is needed).
 - Use the state property in class components to manage data and UI updates:
 
 - Use the `componentDidMount()` lifecycle method to fetch the list of users from the `JSONPlaceholder` API and update the state.

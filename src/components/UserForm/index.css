@@ -1,0 +1,35 @@
+.form_bg {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 90%;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.form_img_logo {
+  width: 30%;
+  height: 40%;
+  @media screen and (max-width: 768px) {
+    width: 70%;
+    height: 30%;
+  }
+}
+
+.form_ele {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_ele {
+  height: 24px;
+  border: 2px solid gray;
+  background-color: transparent;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding-left: 8px;
+  margin-bottom: 10px;
+}

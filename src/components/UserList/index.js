@@ -190,7 +190,7 @@ class UserList extends Component {
           <Modal isOpen={showError} contentLabel="User Form">
             <div className="error_container">
               <img
-                src="https://cdn.vectorstock.com/i/500p/62/37/unhappy-person-sitting-om-ground-cartoon-stick-vector-45926237.jpg"
+                src="https://www.svgrepo.com/show/379925/alert-error.svg"
                 alt="ERROR"
                 className="error_logo"
               />

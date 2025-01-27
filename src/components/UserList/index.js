@@ -12,6 +12,7 @@ class UserList extends Component {
     currentUser: null,
     showError: false,
     showAddBtn: false,
+    isOpen: false,
   }
 
   onToggleMailError = () => {

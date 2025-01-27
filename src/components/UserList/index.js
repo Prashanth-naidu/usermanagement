@@ -1,3 +1,4 @@
+// Write your code here
 import {Component} from 'react'
 import Modal from 'react-modal'
 import Listdetails from '../Listdetails'
@@ -11,8 +12,11 @@ class UserList extends Component {
     error: '',
     currentUser: null,
     showError: false,
-    showAddBtn: false,
     isOpen: false,
+  }
+
+  componentDidMount() {
+    this.getUserList()
   }
 
   onToggleMailError = () => {
@@ -40,7 +44,7 @@ class UserList extends Component {
     const error = msg
     this.setState(prevState => ({
       showError: !prevState.showError,
-      error: error,
+      error,
     }))
   }
 
@@ -66,7 +70,7 @@ class UserList extends Component {
         this.setState(prevState => ({
           isOpen: !prevState.isOpen,
           showError: !prevState.showError,
-          error: error,
+          error,
         }))
       }
     }
@@ -95,20 +99,15 @@ class UserList extends Component {
     }
   }
 
-  componentDidMount() {
-    this.getUserList()
-  }
-
   getUserList = async () => {
     const url = 'https://jsonplaceholder.typicode.com/users'
     try {
       const response = await fetch(url)
       const data = await response.json()
       if (response.ok) {
-        this.setState(prevState => ({
+        this.setState({
           userList: data,
-          showAddBtn: !prevState.showAddBtn,
-        }))
+        })
       } else {
         throw new Error(`${response.status} ${response.url}`)
       }
@@ -122,8 +121,7 @@ class UserList extends Component {
   }
 
   render() {
-    const {userList, isOpen, currentUser, showError, error, showAddBtn} =
-      this.state
+    const {userList, isOpen, currentUser, showError, error} = this.state
     return (
       <div>
         {!showError ? (
@@ -134,15 +132,9 @@ class UserList extends Component {
               className="img_logo"
             />
             <h1 className="heading">User Management</h1>
-            {showAddBtn && (
-              <button
-                type="button"
-                className="btn"
-                onClick={this.onClickAddUser}
-              >
-                Add User
-              </button>
-            )}
+            <button type="button" className="btn" onClick={this.onClickAddUser}>
+              Add User
+            </button>
             <div className="table_container ">
               <table
                 border="0"

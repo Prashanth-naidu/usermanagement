@@ -11,7 +11,6 @@ class UserList extends Component {
     error: '',
     currentUser: null,
     showError: false,
-    emailError: '',
     showAddBtn: false,
   }
 
